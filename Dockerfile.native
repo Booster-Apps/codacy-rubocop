@@ -1,0 +1,25 @@
+FROM library/ruby:2.5.1-alpine3.7
+
+RUN adduser -u 2004 -D docker
+WORKDIR /opt/docker
+
+ADD --chown=docker:docker "build/codacy-rubocop-linux" "/usr/bin/codacy-rubocop"
+ADD --chown=docker:docker Gemfile /setup/Gemfile
+ADD --chown=docker:docker Gemfile.lock /setup/Gemfile.lock
+ADD --chown=docker:docker .ruby-version /setup/.ruby-version
+ADD --chown=docker:docker .rubocop-version /setup/.rubocop-version
+ADD --chown=docker:docker src/main/resources/docs /docs
+
+RUN \
+  apk add --no-cache ruby ruby-irb ruby-rake ruby-io-console ruby-bigdecimal ruby-json \
+    ruby-bundler libstdc++ tzdata bash ca-certificates libc-dev \
+  && echo 'gem: --no-document' > /etc/gemrc \
+  && cd /setup \
+  && bundle install \
+  && gem cleanup \
+  && rm -rf /tmp/* /var/cache/apk/*""".stripMargin
+
+USER docker
+ENTRYPOINT ["/tool/bin/codacy-rubocop"]
+CMD []
+
