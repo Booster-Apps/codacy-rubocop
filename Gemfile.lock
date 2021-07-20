@@ -61,6 +61,9 @@ GEM
       rubocop
     ruby-progressbar (1.11.0)
     safe_yaml (1.0.5)
+    standard (1.1.5)
+      rubocop (= 1.18.3)
+      rubocop-performance (= 1.11.4)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.0.0)
@@ -87,7 +90,8 @@ DEPENDENCIES
   rubocop-shopify
   rubocop-sorbet
   safe_yaml
+  standard (= 1.1.5)
   yard
 
 BUNDLED WITH
-   2.2.16
+   2.2.24
